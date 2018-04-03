@@ -9,7 +9,7 @@ import control.*;
 
 /**Main class, where the ClockFace window runs.
  * @author !MULLIGANACEOUS!
- * @version 1.0:Official
+ * @version 1.1: Live Update
  */
 public class ClockFaceMain extends JFrame {
 	private static final long serialVersionUID = 1;

@@ -38,7 +38,7 @@ public class ClockFacePanel extends JPanel implements Luminescent, Observer {
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("Updated");
+		///System.err.println("Updated");
 		this.repaint();
 	}
 }
