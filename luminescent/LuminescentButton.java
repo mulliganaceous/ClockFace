@@ -10,10 +10,19 @@ public class LuminescentButton extends JButton implements Luminescent {
 
 	public LuminescentButton(String str) {
 		super(str);
-		this.setForeground(GITD);
+		this.turnOff();
 		this.setFont(LARGE_FONT);
-		this.setBackground(Color.BLACK);
 		this.setBorder(BorderFactory.createLineBorder(GITD, 6));
 		this.setPreferredSize(new Dimension(128,64));
+	}
+	
+	public void turnOn() {
+		this.setForeground(Color.BLACK);
+		this.setBackground(GITD2);
+	}
+	
+	public void turnOff() {
+		this.setForeground(GITD);
+		this.setBackground(Color.BLACK);
 	}
 }

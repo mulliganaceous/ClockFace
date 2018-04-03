@@ -22,6 +22,10 @@ public class SetClockPanel extends LuminescentPanel {
 	private static LuminescentButton updateButton;
 	private static LuminescentButton updateTimeButton;
 	private static LuminescentButton saveImageButton;
+	private static LuminescentButton liveUpdateButton;
+	
+	private Timer timer;
+	private boolean isLive;
 	
 	public SetClockPanel(TimeDateModel model) {
 		super();
@@ -51,15 +55,21 @@ public class SetClockPanel extends LuminescentPanel {
 		this.add(sField);
 		
 		// Update buttons
-		updateButton = new LuminescentButton("Update!");
+		updateButton = new LuminescentButton("Update");
 		updateButton.addActionListener(new UpdateListener());
 		this.add(updateButton);
-		updateTimeButton = new LuminescentButton("Update Time!");
+		updateTimeButton = new LuminescentButton("Update Time");
 		updateTimeButton.addActionListener(new UpdateTimeListener());
 		this.add(updateTimeButton);
 		saveImageButton = new LuminescentButton("Save Image!");
 		saveImageButton.addActionListener(new SaveClockFaceListener());
 		this.add(saveImageButton);
+		
+		// Automatic Update
+		liveUpdateButton = new LuminescentButton("Auto-Update");
+		liveUpdateButton.addActionListener(new LiveUpdateListener());
+		this.add(liveUpdateButton);
+		this.timer = new Timer(16, new TimerListener());
 	}
 	
 	private void updateClock() {
@@ -100,6 +110,16 @@ public class SetClockPanel extends LuminescentPanel {
 		SetClockPanel.this.model.setTime(h, m, s);
 	}
 	
+	private void startTimer() {
+		this.isLive = true;
+		this.timer.start();
+	}
+	
+	private void stopTimer() {
+		this.isLive = false;
+		this.timer.stop();
+	}
+	
 	private class UpdateListener implements ActionListener {
 		public UpdateListener() {
 			super();
@@ -131,6 +151,27 @@ public class SetClockPanel extends LuminescentPanel {
 			SetClockPanel.this.model.getCommand().saveImage();
 			System.out.printf("%s.gif is now saved in Saved_Images folder\n", 
 					SetClockPanel.this.model.getTimedate());
+		}
+	}
+	
+	private class LiveUpdateListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			if (SetClockPanel.this.isLive) {
+				SetClockPanel.this.stopTimer();
+				SetClockPanel.liveUpdateButton.turnOff();
+			}
+			else {
+				updateClockToTime();
+				SetClockPanel.this.startTimer();
+				SetClockPanel.liveUpdateButton.turnOn();
+			}
+		}
+	}
+	
+	private class TimerListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			if (SetClockPanel.this.isLive)
+				updateClockToTime();
 		}
 	}
 }
