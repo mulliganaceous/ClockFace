@@ -27,7 +27,7 @@ public class ClockFaceMain extends JFrame {
 	
 	private ClockFaceMain() {
 		super();
-		this.setLayout(new FlowLayout());
+		this.getContentPane().setLayout(new FlowLayout());
 		
 		// TimeDate and ClockFace
 		this.timedate = new TimeDate();
@@ -43,7 +43,6 @@ public class ClockFaceMain extends JFrame {
 		this.getContentPane().add(setTimeDate);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.getContentPane().setPreferredSize(DIMENSION);
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);

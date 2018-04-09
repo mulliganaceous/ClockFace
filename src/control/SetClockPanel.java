@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 
 import main.ClockFaceMain;
+import main.TimeDate;
 import model.*;
 import luminescent.*;
 
@@ -33,7 +34,7 @@ public class SetClockPanel extends LuminescentPanel {
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
 		// Date label
-		yearField = new LuminescentField(3);
+		yearField = new LuminescentField(4);
 		moField = new LuminescentField(2);
 		dField = new LuminescentField(2);
 		this.add(new LuminescentLabel("Set Date:"));
@@ -70,6 +71,8 @@ public class SetClockPanel extends LuminescentPanel {
 		liveUpdateButton.addActionListener(new LiveUpdateListener());
 		this.add(liveUpdateButton);
 		this.timer = new Timer(16, new TimerListener());
+		
+		updateFields(this.model.getTimedate());
 	}
 	
 	private void updateClock() {
@@ -97,6 +100,15 @@ public class SetClockPanel extends LuminescentPanel {
 		}
 	}
 	
+	private static void updateFields(TimeDate date) {
+		yearField.setText(date.getYear() + "");
+		moField.setText(date.getMonth() + "");
+		dField.setText(date.getDay() + "");
+		hField.setText(date.getHour() + "");
+		mField.setText(date.getMinute() + "");
+		sField.setText(date.getSecond() + "");
+	}
+	
 	private void updateClockToTime() {
 		int year, mo, d, h, m, s;
 		LocalDateTime localTimeDate = LocalDateTime.now();
@@ -108,6 +120,7 @@ public class SetClockPanel extends LuminescentPanel {
 		s = localTimeDate.getSecond();
 		SetClockPanel.this.model.setDate(year, mo, d);
 		SetClockPanel.this.model.setTime(h, m, s);
+		updateFields(this.model.getTimedate());
 	}
 	
 	private void startTimer() {

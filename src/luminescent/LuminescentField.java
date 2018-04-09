@@ -10,7 +10,7 @@ public class LuminescentField extends JTextField implements Luminescent {
 	public LuminescentField(int len) {
 		super(len);
 		// Style
-		this.setFont(LARGE_FONT);
+		this.setFont(SMALL_FONT);
 		this.setBackground(GITD);
 		this.setForeground(Color.BLACK);
 		this.setBorder(BorderFactory.createLineBorder(GITD));
